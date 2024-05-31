@@ -5,7 +5,7 @@
 def pascal_triangle(n):
     """function that returns Pacals triangle"""
     if n <= 0:
-        return [[]]
+        return []
     result = [[1]]
     for i in range(n - 1):
         _space = [0] + result[-1] + [0]

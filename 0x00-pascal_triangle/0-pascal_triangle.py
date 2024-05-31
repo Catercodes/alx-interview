@@ -1,5 +1,9 @@
-#!/usr/bin/python3pt
+#!/usr/bin/python3
+"""The python enviorment"""
+
+
 def pascal_triangle(n):
+    """function that returns Pacals triangle"""
     if n <= 0:
         return [[]]
     result = [[1]]

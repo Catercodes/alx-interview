@@ -1,38 +1,29 @@
 #!/usr/bin/python3
-"""
-Defines a module that creates the island_perimeter
-function
-"""
+""" Module for solving prime game question """
 
+def isWinner(x, nums):
+    """function that checks for the winner"""
+    if not nums or x < 1:
+        return None
+    max_num = max(nums)
 
-def island_perimeter(grid):
-    """
-    Returns the perimeter of an Island
-    from a grid
-
-    Parameters
-    grid : list
-        A list of integers denoting
-        the details of the island
-
-    Return
-        The perimeter for the Island
-    """
-    rows, cols = 0, 0
-    perimeter = 0
-
-    if (grid is None or grid == [] or len(grid) == 0 or len(grid[0]) == 0):
-        return (0)
-
-    rows = len(grid)
-    cols = len(grid[0])
-    for row in range(0, rows, 1):
-        for col in range(0, cols, 1):
-            if (grid[row][col] == 1):
-                perimeter += 4
-                if (row > 0 and grid[row - 1][col] == 1):
-                    perimeter -= 2
-                if (col > 0 and grid[row][col - 1] == 1):
-                    perimeter -= 2
-
-    return (perimeter)
+    my_filter = [True for _ in range(max(max_num + 1, 2))]
+    for i in range(2, int(pow(max_num, 0.5)) + 1):
+        if not my_filter[i]:
+            continue
+        for j in range(i * i, max_num + 1, i):
+            my_filter[j] = False
+    my_filter[0] = my_filter[1] = False
+    y = 0
+    for i in range(len(my_filter)):
+        if my_filter[i]:
+            y += 1
+        my_filter[i] = y
+    player1 = 0
+    for x in nums:
+        player1 += my_filter[x] % 2 == 1
+    if player1 * 2 == len(nums):
+        return None
+    if player1 * 2 > len(nums):
+        return "Maria"
+    return "Ben"
